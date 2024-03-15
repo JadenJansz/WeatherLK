@@ -7,5 +7,9 @@
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "JadenJansz",
-  "license": "MIT LICENSE"
+  "license": "MIT LICENSE",
+  "dependencies": {
+    "axios": "^1.6.8",
+    "cron": "^3.1.6"
+  }
 }
