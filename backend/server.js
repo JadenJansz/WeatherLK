@@ -4,6 +4,8 @@ const dotenv = require('dotenv');
 const dataRouter = require('./routes/dataRouter')
 
 dotenv.config();
+require("./db/conn");
+
 const app = express();
 const port = process.env.PORT || 5000;
 

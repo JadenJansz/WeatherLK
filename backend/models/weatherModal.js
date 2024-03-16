@@ -2,11 +2,15 @@ const mongoose = require('mongoose');
 const District = require('./districtModal')
 
 const weatherSchema = new mongoose.Schema({
-    city_id: {
+    district_id: {
         type: mongoose.Schema.Types.ObjectId,
         ref: District
     },
-    temparature: {
+    district: {
+        type: String,
+        required: true,
+    },
+    temperature: {
         type: Number,
         required: true,
     },
@@ -21,5 +25,5 @@ const weatherSchema = new mongoose.Schema({
     timestamp: Date
 });
 
-const Weather = mongoose.model('weather', weatherSchema);
+const Weather = mongoose.model('Weather', weatherSchema);
 module.exports = Weather;
