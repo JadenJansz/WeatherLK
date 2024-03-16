@@ -7,21 +7,17 @@ const getRandomValues = (max, min) => {
 }
 
 const generateDataForDistrict = (district) => {
-    const currentDate = new Date();
+    const timestamp = new Date();
     const temparature = getRandomValues(district.temperature.highest, district.temperature.lowest);
     const humidity = getRandomValues(district.humidity.highest, district.humidity.lowest);
-    const airPressure = getRandomValues(district.air_pressure.highest, district.air_pressure.lowest);
+    const pressure = getRandomValues(district.air_pressure.highest, district.air_pressure.lowest);
 
     return {
         district: district.name,
         temparature,
         humidity,
-        airPressure,
-        day: currentDate.getDate(),
-        month: currentDate.getMonth() + 1,
-        year: currentDate.getFullYear(),
-        hour: currentDate.getHours(),
-        minute: currentDate.getMinutes()
+        pressure,
+        timestamp
     }
 }
 
@@ -35,9 +31,18 @@ const getDataForAllDistricts = () => {
     return districtMetricValues;
 }
 
+const sendDataToDatabase = async (data) => {
+    try {
+        await axios.post('http://localhost:5000/api/data', data)
+    } catch (error) {
+        console.error('Error sending data: ', error)        
+    }
+}
+
 const job = new CronJob('*/5 * * * *', async () => {
     const data = getDataForAllDistricts();
 
+    await sendDataToDatabase(data);
 });
 
 job.start();
