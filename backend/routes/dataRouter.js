@@ -1,6 +1,10 @@
 const express = require('express');
 const dataController = require('../controllers/dataController');
 
-const dataRouter = express.Router();
+const dataRoutes = express.Router();
 
-dataRouter.post('device-id/:id', dataController.saveData);
+dataRoutes.get('/', dataController.getAllDistrictData)
+dataRoutes.post('/device-id/:id', dataController.saveData);
+dataRoutes.get('/:district', dataController.getDataByDistrict);
+
+module.exports = dataRoutes
