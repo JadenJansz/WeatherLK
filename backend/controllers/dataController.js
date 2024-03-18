@@ -83,10 +83,130 @@ const getAllDistrictData = async (req, res) => {
     }
 }
 
+const getDataByDistrict = async (req, res) => {
+    try {
+        const district = req.params.district.charAt(0).toUpperCase()+ req.params.district.slice(1)
+        
+        if(!district) {
+            res.status(400).json({
+                success: 'false',
+                message: 'District Not Specified'
+            })
+            
+            return;
+        }
+        
+        const data = await Weather.aggregate([
+            {
+                $match: {
+                    district: district,
+                    timestamp: { $lt: new Date() }
+                }
+            },
+            {
+                $sort: { timestamp: -1 }
+            },
+            {
+                $limit: 1
+            }
+        ])
+        
+        if(data.length === 0) {
+            return res.status(404).json({
+                success: 'true',
+                message: 'Weather Data Not Found For The District'
+            })
+        }
+        
+        res.status(200).json(data[0])
+    } catch (error) {
+        res.status(500).json({
+            success: 'false',
+            message: error.message
+        })
+    }
+}
 
+const deleteOldData = async (req, res) => {
+
+    try {
+        const date = new Date();
+        date.setDate(date.getDate() - 2);
+
+        const data = await Weather.deleteMany({ timestamp: { $lt: date} })
+
+        if(data.deletedCount === 0) {
+            return res.status(404).json({
+                success: 'true',
+                message: 'No Such Data To Remove'
+            })
+        }
+
+        if(data.deletedCount > 0) {
+            return res.status(200).json({
+                success: 'true',
+                message: 'Old Data Removed'
+            })
+        }
+    } catch (error) {
+        res.status(500).json({
+            success: 'false',
+            message: error.message
+        })
+    }
+}
+
+const getMaxMinData = async (req, res) => {
+    try {
+        const pastDay = new Date();
+        pastDay.setDate(pastDay.getDate() - 1); // Calculate the date for the past day
+
+        const data = await Weather.aggregate([
+            {
+                $match: {
+                    timestamp: { $gte: pastDay } // Filter data for the past day
+                }
+            },
+            {
+                $group: {
+                    _id: "$district",
+                    highestTemperature: { $max: "$temperature" },
+                    lowestTemperature: { $min: "$temperature" },
+                    highestHumidity: { $max: "$humidity" },
+                    lowestHumidity: { $min: "$humidity" },
+                    highestPressure: { $max: "$pressure" },
+                    lowestPressure: { $min: "$pressure" }
+                }
+            },
+            {
+                $sort: { highestTemperature: -1 } // Sort by highest temperature in descending order
+            },
+            {
+                $facet: {
+                    highestTemperature: [ { $limit: 1 } ],
+                    lowestTemperature: [ { $limit: 1 } ],
+                    highestHumidity: [ { $limit: 1 } ],
+                    lowestHumidity: [ { $limit: 1 } ],
+                    highestPressure: [ { $limit: 1 } ],
+                    lowestPressure: [ { $limit: 1 } ]
+                }
+            }
+        ])
+
+
+        res.status(200).send(data)
+    } catch (error) {
+        res.status(500).json({
+            success: 'false',
+            message: error.message
+        })
+    }
+}
 
 module.exports = {
     saveData,
     getDataByDistrict,
-    getAllDistrictData
+    getAllDistrictData,
+    deleteOldData,
+    getMaxMinData
 }
