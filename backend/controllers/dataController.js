@@ -159,12 +159,12 @@ const deleteOldData = async (req, res) => {
 const getMaxMinData = async (req, res) => {
     try {
         const pastDay = new Date();
-        pastDay.setDate(pastDay.getDate() - 1); // Calculate the date for the past day
+        pastDay.setDate(pastDay.getDate() - 1);
 
         const data = await Weather.aggregate([
             {
                 $match: {
-                    timestamp: { $gte: pastDay } // Filter data for the past day
+                    timestamp: { $gte: pastDay }
                 }
             },
             {
@@ -179,7 +179,7 @@ const getMaxMinData = async (req, res) => {
                 }
             },
             {
-                $sort: { highestTemperature: -1 } // Sort by highest temperature in descending order
+                $sort: { highestTemperature: -1 }
             },
             {
                 $facet: {
