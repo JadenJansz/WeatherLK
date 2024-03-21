@@ -1,6 +1,8 @@
 const metricData = require('./metricData.json') 
 const CronJob = require('cron').CronJob;
 const axios = require('axios');
+const dotenv = require('dotenv');
+dotenv.config();
 
 const getRandomValues = (max, min) => {
     return Math.round(Math.random() * (max - min) + min);
@@ -33,9 +35,16 @@ const getDataForAllDistricts = () => {
 
 const sendDataToDatabase = async (data) => {
     try {
-        await axios.post('http://localhost:3000/api/data/device-id/1', data)
+        const config = {
+            headers: {
+                'auth-token': process.env.CRON_AUTH_TOKEN
+            }
+        };
+
+        await axios.post('http://localhost:3000/api/v1/weather/device-id/1', data, config)
+        console.error('Data Sent Successfully')  
     } catch (error) {
-        console.error('Error sending data: ', error)        
+        console.error('Error sending data: ', error.message)        
     }
 }
 
@@ -46,3 +55,19 @@ const job = new CronJob('*/5 * * * * *', async () => {
 });
 
 job.start();
+
+const jobDelete = new CronJob('* * */23 * * *', async () => {
+    try {
+        const config = {
+            headers: {
+                'auth-token': process.env.CRON_AUTH_TOKEN
+            }
+        };
+    
+        await axios.delete('http://localhost:3000/api/v1/weather/districts/old', data, config)
+    } catch (error) {
+        console.error('Error deleting data: ', error.message) 
+    }
+})
+
+jobDelete.start();
