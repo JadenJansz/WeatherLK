@@ -9,7 +9,13 @@ require("./db/conn");
 const app = express();
 const port = process.env.PORT || 5000;
 
-app.use(cors());
+const corsOptions = {
+    origin: 'http://localhost:5173/',
+    methods: ['GET','POST']
+}
+
+app.use('/api/v1/weather/districts', cors(corsOptions))
+
 app.use(express.json());
 
 app.use('/api/v1/weather', dataRouter)
