@@ -158,41 +158,69 @@ const deleteOldData = async (req, res) => {
 
 const getMaxMinData = async (req, res) => {
     try {
-        const pastDay = new Date();
-        pastDay.setDate(pastDay.getDate() - 1);
+        const currentDate = new Date();
+
+        const previousDayStart = new Date(currentDate);
+        previousDayStart.setDate(currentDate.getDate());
+        previousDayStart.setHours(0,0,0,0);
+
+        const previousDayEnd = new Date(currentDate);
+        previousDayEnd.setDate(currentDate.getDate() + 1);
+        previousDayEnd.setHours(0,0,0,0);
 
         const data = await Weather.aggregate([
             {
-                $match: {
-                    timestamp: { $gte: pastDay }
+              $match: {
+                timestamp: {
+                  $gte: previousDayStart,
+                  $lt: previousDayEnd
                 }
+              }
             },
             {
                 $group: {
-                    _id: "$district",
-                    highestTemperature: { $max: "$temperature" },
-                    lowestTemperature: { $min: "$temperature" },
-                    highestHumidity: { $max: "$humidity" },
-                    lowestHumidity: { $min: "$humidity" },
-                    highestPressure: { $max: "$pressure" },
-                    lowestPressure: { $min: "$pressure" }
+                    _id: '$district',
+                    maxTemperature: { $max: '$temperature' },
+                    minTemperature: { $min: '$temperature' }
                 }
             },
             {
-                $sort: { highestTemperature: -1 }
+                $sort: {
+                    maxTemperature: -1
+                }
             },
             {
-                $facet: {
-                    highestTemperature: [ { $limit: 1 } ],
-                    lowestTemperature: [ { $limit: 1 } ],
-                    highestHumidity: [ { $limit: 1 } ],
-                    lowestHumidity: [ { $limit: 1 } ],
-                    highestPressure: [ { $limit: 1 } ],
-                    lowestPressure: [ { $limit: 1 } ]
+            $group: {
+                _id: null,
+                highestTemperature: {
+                    $first: {
+                        district: '$_id',
+                        temperature: '$maxTemperature'
+                    }
+                },
+                lowestTemperature: {
+                    $last: {
+                        district: '$_id',
+                        temperature: '$minTemperature'
+                    }
                 }
             }
-        ])
+            },
+            {
+            $project: {
+                    _id: 0,
+                    highestTemperature: 1,
+                    lowestTemperature: 1
+                }
+            }
+        ]);
 
+        if(data.length === 0) {
+            return res.status(200).json({
+                success: 'true',
+                message: "No Data Available for the specified time"
+            })
+        }
 
         res.status(200).send(data)
     } catch (error) {

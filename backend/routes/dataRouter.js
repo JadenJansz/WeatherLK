@@ -11,7 +11,7 @@ dataRoutes.get('/districts', dataController.getAllDistrictData);
 dataRoutes.post('/device-id/:id', auth, dataController.saveData);
 
 // get weather data from a single district
-dataRoutes.get('/districts/:district', dataController.getDataByDistrict);
+dataRoutes.get('/districts/district/:district', dataController.getDataByDistrict);
 
 // get aggregate weather values
 dataRoutes.get('/districts/maxmin', dataController.getMaxMinData);
