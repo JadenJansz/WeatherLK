@@ -69,16 +69,22 @@ const getAllDistrictData = async (req, res) => {
         if(data.length === 0) {
             return res.status(404).json({
                 success: 'true',
-                message: 'Weather Data Not Found'
+                message: 'Weather Data Not Found',
+                data: []
             }) 
         }
 
-        res.status(200).json(data);
+        res.status(200).json({
+            success: 'true',
+            message: '',
+            data: data
+        });
 
     } catch (error) {
         res.status(500).json({
             success: 'false',
-            message: error.message
+            message: error.message,
+            data: []
         })
     }
 }
@@ -90,7 +96,8 @@ const getDataByDistrict = async (req, res) => {
         if(!district) {
             res.status(400).json({
                 success: 'false',
-                message: 'District Not Specified'
+                message: 'District Not Specified',
+                data: []
             })
             
             return;
@@ -114,15 +121,21 @@ const getDataByDistrict = async (req, res) => {
         if(data.length === 0) {
             return res.status(404).json({
                 success: 'true',
-                message: 'Weather Data Not Found For The District'
+                message: 'Weather Data Not Found For The District',
+                data: []
             })
         }
         
-        res.status(200).json(data[0])
+        res.status(200).json({
+            success: 'false',
+            message: 'District Not Specified',
+            data: data[0]
+        })
     } catch (error) {
         res.status(500).json({
             success: 'false',
-            message: error.message
+            message: error.message,
+            data: []
         })
     }
 }
@@ -218,15 +231,21 @@ const getMaxMinData = async (req, res) => {
         if(data.length === 0) {
             return res.status(200).json({
                 success: 'true',
-                message: "No Data Available for the specified time"
+                message: "No Data Available for the specified time",
+                data: []
             })
         }
 
-        res.status(200).send(data)
+        res.status(200).send({
+            success: 'true',
+            message: '',
+            data: data
+        })
     } catch (error) {
         res.status(500).json({
             success: 'false',
-            message: error.message
+            message: error.message,
+            data: []
         })
     }
 }
