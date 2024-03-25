@@ -11,7 +11,7 @@ function App() {
         <div className="px-12">
           <Metrics />
         </div>
-        <div className="basis-1/3 mt-10">
+        <div className="basis-1/3 mt-1 scale-75">
           <WeatherMap />
         </div>
       </div>
