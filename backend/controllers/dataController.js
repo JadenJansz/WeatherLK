@@ -174,11 +174,11 @@ const getMaxMinData = async (req, res) => {
         const currentDate = new Date();
 
         const previousDayStart = new Date(currentDate);
-        previousDayStart.setDate(currentDate.getDate());
+        previousDayStart.setDate(currentDate.getDate() - 1);
         previousDayStart.setHours(0,0,0,0);
 
         const previousDayEnd = new Date(currentDate);
-        previousDayEnd.setDate(currentDate.getDate() + 1);
+        previousDayEnd.setDate(currentDate.getDate());
         previousDayEnd.setHours(0,0,0,0);
 
         const data = await Weather.aggregate([
