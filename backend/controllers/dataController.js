@@ -127,8 +127,8 @@ const getDataByDistrict = async (req, res) => {
         }
         
         res.status(200).json({
-            success: 'false',
-            message: 'District Not Specified',
+            success: 'true',
+            message: '',
             data: data[0]
         })
     } catch (error) {
