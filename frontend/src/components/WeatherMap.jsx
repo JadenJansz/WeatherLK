@@ -12,7 +12,13 @@ const WeatherMap = () => {
       setMap(Raphael("map", 450, 790));
 
       const fetchWeatherData = async () => {
-        const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/districts`);
+        const config = {
+          headers: {
+              'auth-token': import.meta.env.VITE_AUTH_TOKEN
+          }
+        };
+
+        const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/districts`, config);
         if(response.data.data.length !== 0) {
             const transformedData = {}
             response.data.data.forEach(item => {

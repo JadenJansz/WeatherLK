@@ -19,7 +19,12 @@ const Metrics = () => {
 
     useEffect(() => {
         const getMaxMinTemp = async () => {
-            const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/districts/maxmin`);
+            const config = {
+                headers: {
+                    'auth-token': import.meta.env.VITE_AUTH_TOKEN
+                }
+            };
+            const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/districts/maxmin`, config);
 
             if(response.data.data.length !== 0) {
                 setTemperature(response.data.data[0]);
@@ -32,7 +37,7 @@ const Metrics = () => {
     }, []);
     
   return (
-    <div className="bg-gray-300 mt-6 shadow-xl rounded-lg p-8">
+    <div className="bg-blue-300 mt-12 shadow-xl rounded-lg p-8">
         <h1 className="text-3xl font-semibold mb-4">Last 24 Hours</h1>
         <hr className="h-px bg-gray-200 border-0 dark:bg-gray-700"/>
         {
@@ -53,7 +58,7 @@ const Metrics = () => {
                     <div className="flex items-center py-4 ml-[-40px]">
                         <img src={cool} className='w-20 h-20' />
                         <div>
-                            <h3 className="text-xl text-blue-500 font-medium">{`Lowest Temparature : ${temperature.lowestTemperature.temperature}°C`}</h3>
+                            <h3 className="text-xl text-blue-600 font-medium">{`Lowest Temparature : ${temperature.lowestTemperature.temperature}°C`}</h3>
                             <h3>{temperature.lowestTemperature.district}</h3>
                         </div>
                     </div>
