@@ -37,7 +37,7 @@ const sendDataToDatabase = async (data) => {
     try {
         const config = {
             headers: {
-                'auth-token': process.env.CRON_AUTH_TOKEN
+                'auth-token': process.env.AUTH_TOKEN
             }
         };
 
@@ -60,11 +60,11 @@ const jobDelete = new CronJob('* * */23 * * *', async () => {
     try {
         const config = {
             headers: {
-                'auth-token': process.env.CRON_AUTH_TOKEN
+                'auth-token': process.env.AUTH_TOKEN
             }
         };
     
-        await axios.delete('http://localhost:3000/api/v1/weather/districts/old', data, config)
+        await axios.delete('http://localhost:3000/api/v1/weather/districts/old', config)
     } catch (error) {
         console.error('Error deleting data: ', error.message) 
     }

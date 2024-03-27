@@ -3,7 +3,7 @@ const auth = (req, res, next) => {
     try {
         const authToken = req.headers['auth-token'];
     
-        if(authToken === process.env.CRON_AUTH_TOKEN) {
+        if(authToken === process.env.AUTH_TOKEN) {
             next();
         } else {
             return res.status(401).json({
