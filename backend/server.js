@@ -10,7 +10,7 @@ const app = express();
 const port = process.env.PORT || 5000;
 
 const corsOptions = {
-    origin: 'http://localhost:5173',
+    origin: process.env.FRONTEND_URL,
     methods: ['GET']
 }
 
@@ -20,6 +20,10 @@ app.use(express.json());
 
 app.use('/api/v1/weather', dataRouter)
 
+app.get('/', (req, res) => {
+    res.status(404);
+    res.sendFile(__dirname + '/404.html');
+});
 
 app.listen(port, () => {
     console.log(`Listening on port ${port}`);
