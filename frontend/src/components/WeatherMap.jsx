@@ -18,7 +18,7 @@ const WeatherMap = () => {
           }
         };
 
-        const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/districts`, config);
+        const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/v1/weather/districts`, config);
         if(response.data.data.length !== 0) {
             const transformedData = {}
             response.data.data.forEach(item => {
