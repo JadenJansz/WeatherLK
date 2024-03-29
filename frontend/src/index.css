@@ -4,4 +4,6 @@
 
 body {
     font-family: "Poppins", sans-serif;
+    --tw-bg-opacity: 1;
+    background-color: rgb(147 197 253 / var(--tw-bg-opacity));
 }
