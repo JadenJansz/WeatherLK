@@ -41,8 +41,8 @@ const sendDataToDatabase = async (data) => {
             }
         };
 
-        await axios.post('http://localhost:3000/api/v1/weather/device-id/1', data, config)
-        console.error('Data Sent Successfully')  
+        await axios.post(`${process.env.SERVER_URL}/api/v1/weather/device-id/1`, data, config)
+        console.log('Data Sent Successfully')  
     } catch (error) {
         console.error('Error sending data: ', error.message)        
     }

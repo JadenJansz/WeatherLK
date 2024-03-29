@@ -24,7 +24,7 @@ const Metrics = () => {
                     'auth-token': import.meta.env.VITE_AUTH_TOKEN
                 }
             };
-            const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/districts/maxmin`, config);
+            const response = await axios.get(`${import.meta.env.VITE_SERVER_URL}/api/v1/weather/districts/maxmin`, config);
 
             if(response.data.data.length !== 0) {
                 setTemperature(response.data.data[0]);

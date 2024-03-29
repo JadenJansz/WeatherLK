@@ -1,0 +1,341 @@
+openapi: 3.0.3
+info:
+  title: WeatherLK
+  version: 1.0.0
+  contact: {}
+servers:
+  - url: https://weatherlkbackend.onrender.com
+paths:
+  /api/v1/weather/districts:
+    get:
+      summary: GetWeatherAllDistricts
+      description: GetWeatherAllDistricts
+      operationId: getweatheralldistricts
+      responses:
+        '200':
+          description: ''
+  /api/v1/weather/districts/district/colombo:
+    get:
+      summary: GetWeatherByDistrict
+      description: GetWeatherByDistrict
+      operationId: getweatherbydistrict
+      responses:
+        '200':
+          description: ''
+  /api/v1/weather/districts/maxmin:
+    get:
+      summary: GetMaxMinTemp
+      description: GetMaxMinTemp
+      operationId: getmaxmintemp
+      responses:
+        '200':
+          description: ''
+  /api/v1/weather/old:
+    delete:
+      summary: DeleteOldData
+      description: DeleteOldData
+      operationId: deleteolddata
+      responses:
+        '200':
+          description: ''
+  /api/v1/weather/device-id/{id}:
+    post:
+      summary: AddWeatherData
+      description: AddWeatherData
+      operationId: addweatherdata
+      requestBody:
+        content:
+          application/json:
+            schema:
+              type: array
+              items:
+                type: object
+                properties:
+                  district:
+                    type: string
+                    example: Ampara
+                  humidity:
+                    type: number
+                    example: 67
+                  pressure:
+                    type: number
+                    example: 1012
+                  temperature:
+                    type: number
+                    example: 26
+                  timestamp:
+                    type: string
+                    example: '2024-03-26T19:33:35.001Z'
+              example:
+                - district: Ampara
+                  humidity: 67
+                  pressure: 1012
+                  temperature: 26
+                  timestamp: '2024-03-26T19:33:35.001Z'
+                - district: Anuradhapura
+                  humidity: 54
+                  pressure: 1011
+                  temperature: 35
+                  timestamp: '2024-03-26T19:33:35.001Z'
+                - district: Badulla
+                  humidity: 75
+                  pressure: 1012
+                  temperature: 25
+                  timestamp: '2024-03-26T19:33:35.001Z'
+                - district: Batticaloa
+                  humidity: 88
+                  pressure: 1012
+                  temperature: 27
+                  timestamp: '2024-03-26T19:33:35.001Z'
+                - district: Colombo
+                  humidity: 65
+                  pressure: 1008
+                  temperature: 28
+                  timestamp: '2024-03-26T19:33:35.001Z'
+                - district: Galle
+                  humidity: 71
+                  pressure: 1010
+                  temperature: 29
+                  timestamp: '2024-03-26T19:33:35.001Z'
+                - district: Gampaha
+                  humidity: 78
+                  pressure: 1014
+                  temperature: 26
+                  timestamp: '2024-03-26T19:33:35.001Z'
+                - district: Hambantota
+                  humidity: 78
+                  pressure: 1013
+                  temperature: 27
+                  timestamp: '2024-03-26T19:33:35.001Z'
+                - district: Jaffna
+                  humidity: 64
+                  pressure: 1011
+                  temperature: 33
+                  timestamp: '2024-03-26T19:33:35.001Z'
+                - district: Kalutara
+                  humidity: 78
+                  pressure: 1007
+                  temperature: 32
+                  timestamp: '2024-03-26T19:33:35.001Z'
+                - district: Kandy
+                  humidity: 94
+                  pressure: 1014
+                  temperature: 19
+                  timestamp: '2024-03-26T19:33:35.001Z'
+                - district: Kegalle
+                  humidity: 78
+                  pressure: 1011
+                  temperature: 23
+                  timestamp: '2024-03-26T19:33:35.001Z'
+                - district: Kilinochchi
+                  humidity: 64
+                  pressure: 1010
+                  temperature: 28
+                  timestamp: '2024-03-26T19:33:35.001Z'
+                - district: Kurunegala
+                  humidity: 64
+                  pressure: 1009
+                  temperature: 24
+                  timestamp: '2024-03-26T19:33:35.001Z'
+                - district: Mannar
+                  humidity: 69
+                  pressure: 1010
+                  temperature: 34
+                  timestamp: '2024-03-26T19:33:35.001Z'
+                - district: Matale
+                  humidity: 91
+                  pressure: 1013
+                  temperature: 23
+                  timestamp: '2024-03-26T19:33:35.001Z'
+                - district: Matara
+                  humidity: 76
+                  pressure: 1010
+                  temperature: 27
+                  timestamp: '2024-03-26T19:33:35.001Z'
+                - district: Monaragala
+                  humidity: 71
+                  pressure: 1007
+                  temperature: 28
+                  timestamp: '2024-03-26T19:33:35.001Z'
+                - district: Mullaitivu
+                  humidity: 72
+                  pressure: 1010
+                  temperature: 30
+                  timestamp: '2024-03-26T19:33:35.001Z'
+                - district: Nuwara Eliya
+                  humidity: 71
+                  pressure: 1010
+                  temperature: 16
+                  timestamp: '2024-03-26T19:33:35.001Z'
+                - district: Polonnaruwa
+                  humidity: 64
+                  pressure: 1011
+                  temperature: 35
+                  timestamp: '2024-03-26T19:33:35.001Z'
+                - district: Puttalam
+                  humidity: 69
+                  pressure: 1009
+                  temperature: 31
+                  timestamp: '2024-03-26T19:33:35.001Z'
+                - district: Ratnapura
+                  humidity: 69
+                  pressure: 1012
+                  temperature: 24
+                  timestamp: '2024-03-26T19:33:35.001Z'
+                - district: Trincomalee
+                  humidity: 70
+                  pressure: 1015
+                  temperature: 35
+                  timestamp: '2024-03-26T19:33:35.001Z'
+                - district: Vavuniya
+                  humidity: 63
+                  pressure: 1012
+                  temperature: 28
+                  timestamp: '2024-03-26T19:33:35.001Z'
+            examples:
+              AddWeatherData:
+                value:
+                  - district: Ampara
+                    humidity: 67
+                    pressure: 1012
+                    temperature: 26
+                    timestamp: '2024-03-26T19:33:35.001Z'
+                  - district: Anuradhapura
+                    humidity: 54
+                    pressure: 1011
+                    temperature: 35
+                    timestamp: '2024-03-26T19:33:35.001Z'
+                  - district: Badulla
+                    humidity: 75
+                    pressure: 1012
+                    temperature: 25
+                    timestamp: '2024-03-26T19:33:35.001Z'
+                  - district: Batticaloa
+                    humidity: 88
+                    pressure: 1012
+                    temperature: 27
+                    timestamp: '2024-03-26T19:33:35.001Z'
+                  - district: Colombo
+                    humidity: 65
+                    pressure: 1008
+                    temperature: 28
+                    timestamp: '2024-03-26T19:33:35.001Z'
+                  - district: Galle
+                    humidity: 71
+                    pressure: 1010
+                    temperature: 29
+                    timestamp: '2024-03-26T19:33:35.001Z'
+                  - district: Gampaha
+                    humidity: 78
+                    pressure: 1014
+                    temperature: 26
+                    timestamp: '2024-03-26T19:33:35.001Z'
+                  - district: Hambantota
+                    humidity: 78
+                    pressure: 1013
+                    temperature: 27
+                    timestamp: '2024-03-26T19:33:35.001Z'
+                  - district: Jaffna
+                    humidity: 64
+                    pressure: 1011
+                    temperature: 33
+                    timestamp: '2024-03-26T19:33:35.001Z'
+                  - district: Kalutara
+                    humidity: 78
+                    pressure: 1007
+                    temperature: 32
+                    timestamp: '2024-03-26T19:33:35.001Z'
+                  - district: Kandy
+                    humidity: 94
+                    pressure: 1014
+                    temperature: 19
+                    timestamp: '2024-03-26T19:33:35.001Z'
+                  - district: Kegalle
+                    humidity: 78
+                    pressure: 1011
+                    temperature: 23
+                    timestamp: '2024-03-26T19:33:35.001Z'
+                  - district: Kilinochchi
+                    humidity: 64
+                    pressure: 1010
+                    temperature: 28
+                    timestamp: '2024-03-26T19:33:35.001Z'
+                  - district: Kurunegala
+                    humidity: 64
+                    pressure: 1009
+                    temperature: 24
+                    timestamp: '2024-03-26T19:33:35.001Z'
+                  - district: Mannar
+                    humidity: 69
+                    pressure: 1010
+                    temperature: 34
+                    timestamp: '2024-03-26T19:33:35.001Z'
+                  - district: Matale
+                    humidity: 91
+                    pressure: 1013
+                    temperature: 23
+                    timestamp: '2024-03-26T19:33:35.001Z'
+                  - district: Matara
+                    humidity: 76
+                    pressure: 1010
+                    temperature: 27
+                    timestamp: '2024-03-26T19:33:35.001Z'
+                  - district: Monaragala
+                    humidity: 71
+                    pressure: 1007
+                    temperature: 28
+                    timestamp: '2024-03-26T19:33:35.001Z'
+                  - district: Mullaitivu
+                    humidity: 72
+                    pressure: 1010
+                    temperature: 30
+                    timestamp: '2024-03-26T19:33:35.001Z'
+                  - district: Nuwara Eliya
+                    humidity: 71
+                    pressure: 1010
+                    temperature: 16
+                    timestamp: '2024-03-26T19:33:35.001Z'
+                  - district: Polonnaruwa
+                    humidity: 64
+                    pressure: 1011
+                    temperature: 35
+                    timestamp: '2024-03-26T19:33:35.001Z'
+                  - district: Puttalam
+                    humidity: 69
+                    pressure: 1009
+                    temperature: 31
+                    timestamp: '2024-03-26T19:33:35.001Z'
+                  - district: Ratnapura
+                    humidity: 69
+                    pressure: 1012
+                    temperature: 24
+                    timestamp: '2024-03-26T19:33:35.001Z'
+                  - district: Trincomalee
+                    humidity: 70
+                    pressure: 1015
+                    temperature: 35
+                    timestamp: '2024-03-26T19:33:35.001Z'
+                  - district: Vavuniya
+                    humidity: 63
+                    pressure: 1012
+                    temperature: 28
+                    timestamp: '2024-03-26T19:33:35.001Z'
+      responses:
+        '200':
+          description: ''
+    parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
+          example: '1'
+components:
+  securitySchemes:
+    apiKey:
+      type: apiKey
+      name: auth-token
+      in: header
+security:
+  - apiKey: []
+tags: []
