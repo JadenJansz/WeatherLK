@@ -18,7 +18,7 @@ const Metrics = () => {
     });
 
     useEffect(() => {
-        const getMaxMinTemp = async () => {
+        const fetchMaxMinTemp = async () => {
             const config = {
                 headers: {
                     'auth-token': import.meta.env.VITE_AUTH_TOKEN
@@ -33,7 +33,7 @@ const Metrics = () => {
             }
         }
 
-        getMaxMinTemp();
+        fetchMaxMinTemp();
     }, []);
     
   return (

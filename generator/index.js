@@ -48,7 +48,7 @@ const sendDataToDatabase = async (data) => {
     }
 }
 
-const job = new CronJob('*/5 * * * * *', async () => {
+const job = new CronJob('*/5 * * * *', async () => {
     const data = getDataForAllDistricts();
 
     await sendDataToDatabase(data);
@@ -56,7 +56,7 @@ const job = new CronJob('*/5 * * * * *', async () => {
 
 job.start();
 
-const jobDelete = new CronJob('* * */23 * * *', async () => {
+const jobDelete = new CronJob('0 0 * * *', async () => {
     try {
         const config = {
             headers: {
