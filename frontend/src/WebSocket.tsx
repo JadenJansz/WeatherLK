@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { io } from "socket.io-client";
 
-const serverUrl = 'http://localhost:3000';
+const serverUrl = import.meta.env.VITE_SERVER_URL;
 const socket = io(serverUrl);
 
 export default function WebSocketComponent() {

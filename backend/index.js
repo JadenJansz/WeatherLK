@@ -3,6 +3,8 @@ const http = require("http");
 const socketIo = require("socket.io");
 const cors = require("cors");
 const webpush = require("web-push");
+const dotenv = require("dotenv");
+dotenv.config();
 
 const app = express();
 const server = http.createServer(app);
@@ -23,9 +25,9 @@ app.use(
 app.use(express.json());
 
 webpush.setVapidDetails(
-  "mailto:jadenjansz@gmail.com",
-  "BGxnuqEGIu0Od2fdejFzZxzo4PibpY0aAzM5sjfOD4c7qkpTWdaApCJahHtD5DOZhCaIVCXZu38ST6n3TTsLsYw",
-  "rHn7zr2lW0E2sH9XNe2PgAGG_CWLkOv0SCO6ZnzEE2w"
+  "https://weatherlk.onrender.com/",
+  process.env.WEB_PUSH_PUBLIC_KEY,
+  process.env.WEB_PUSH_PRIVATE_KEY
 );
 
 let subscriptions = [];
@@ -66,7 +68,9 @@ io.on("connection", (socket) => {
 });
 
 app.get("/vapidPublicKey", (req, res) => {
-  res.json({ publicKey: vapidKeys.publicKey });
+  res.json({
+    publicKey: process.env.WEB_PUSH_PUBLIC_KEY,
+  });
 });
 
 server.listen(PORT, () => {
