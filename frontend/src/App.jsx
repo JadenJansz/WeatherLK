@@ -1,24 +1,15 @@
-import WeatherMap from "./components/WeatherMap"
-import Header from "./components/Header"
-import Metrics from "./components/Metrics"
-import CurrentWeather from "./components/CurrentWeather";
+import "./App.css";
+import WebSocketComponent from "./WebSocket";
 
 function App() {
-
   return (
-    <>
-      <Header />
-      <div className="flex justify-between mx-28 h-full mt-10 rounded-xl mb-32 bg-white shadow-2xl">
-        <div className="px-12">
-          <Metrics />
-        </div>
-        <div className="basis-1/2 scale-90 flex-col">
-          <CurrentWeather />
-          <WeatherMap />
-        </div>
-      </div>
-    </>
-  )
+    <div className="App">
+      <header className="App-header">
+        <h1>ESP32 WebSocket Audio Trigger</h1>
+        <WebSocketComponent />
+      </header>
+    </div>
+  );
 }
 
 export default App;
