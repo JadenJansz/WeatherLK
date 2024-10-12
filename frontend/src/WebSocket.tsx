@@ -4,7 +4,7 @@ import { io } from "socket.io-client";
 const serverUrl = import.meta.env.VITE_SERVER_URL;
 // const socket = io(serverUrl);
 
-const webSocket = new WebSocket("ws://weatherlkbackend.onrender.com/");
+const webSocket = new WebSocket("wss://weatherlkbackend.onrender.com/");
 
 export default function WebSocketComponent() {
   const [messages, setMessages] = useState<string[]>([]);
