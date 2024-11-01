@@ -32,6 +32,28 @@ app.post("/subscribe", (req, res) => {
   res.status(201).json({});
 });
 
+app.post("/message", (req, res) => {
+  const { message } = req.body;
+  broadcastMessage(message);
+
+  // Send push notification to all subscribed clients
+  subscriptions.forEach((subscription) => {
+    webpush
+      .sendNotification(
+        subscription,
+        JSON.stringify({
+          title: "New Message",
+          body: message,
+        })
+      )
+      .catch((error) => {
+        console.error("Error sending push notification:", error);
+      });
+  });
+
+  res.sendStatus(200);
+});
+
 // Set up WebSocket connection
 wss.on("connection", (ws) => {
   console.log("Client connected");
