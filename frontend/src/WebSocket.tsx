@@ -30,7 +30,7 @@ export default function WebSocketComponent() {
       console.log("Message from server ", parsedMessage);
       setMessages((prevMessages) => [...prevMessages, parsedMessage.body]);
       if (parsedMessage.title === "Alert") {
-        const audio = new Audio("/alert.mp3");
+        const audio = new Audio("/bang.mp3");
         audio.play();
       }
     });
