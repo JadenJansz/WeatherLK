@@ -30,8 +30,22 @@ export default function WebSocketComponent() {
       console.log("Message from server ", parsedMessage);
       setMessages((prevMessages) => [...prevMessages, parsedMessage.body]);
       if (parsedMessage.title === "Alert") {
-        const audio = new Audio("/bang.mp3");
-        audio.play();
+        if (parsedMessage.body === "Banging Detected!") {
+          const audio = new Audio("/bang.mp3");
+          audio.play();
+        } else if (parsedMessage.body === "Very loud noise detected!") {
+          const audio = new Audio("/sound.mp3");
+          audio.play();
+        } else if (parsedMessage.body === "Visitor is Feeding!") {
+          const audio = new Audio("/feed.mp3");
+          audio.play();
+        } else if (parsedMessage.body === "Intruder Alert!") {
+          const audio = new Audio("/restricted.mp3");
+          audio.play();
+        } else {
+          const audio = new Audio("/alert.mp3");
+          audio.play();
+        }
       }
     });
   }, []);
